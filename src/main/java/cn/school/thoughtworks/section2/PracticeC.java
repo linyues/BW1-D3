@@ -3,37 +3,18 @@ package cn.school.thoughtworks.section2;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PracticeC {
     Map<String, Integer> countSameElements(List<String> collection1) {
-        //实现练习要求，并改写该行代码
-        Map<String,Integer> resultMap = new HashMap<>();
-
-        for (String s : collection1) {
-
-            if(resultMap.containsKey(s)){
-                resultMap.put(s,resultMap.get(s)+1);
-            }
-            else{
-                resultMap.put(s,1);
-            }
-
-            String[] temp = s.split("-|:|\\[|\\]");
-            if(temp.length>1){
-                if (resultMap.containsKey(temp[0])) {
-                    resultMap.put(temp[0], resultMap.get(temp[0]) + Integer.parseInt(temp[1]));
-                    resultMap.remove(s);
-                }
-                else {
-                    resultMap.put(temp[0], Integer.parseInt(temp[1]));
-                    resultMap.remove(s);
-                }
-            }
+        Map<String, Integer> result = new HashMap<>();
+        for (String charItemStr : collection1) {
+            CharItemObj charItemObj = CharItemObj.createChByStr(charItemStr);
+            String ch = charItemObj.getCh();
+            Integer count = charItemObj.getCount();
+            result.put(ch, result.get(ch) == null ? count : result.get(ch) + count);
         }
-
-        return resultMap;
+        return result;
     }
-
-
-
 }
