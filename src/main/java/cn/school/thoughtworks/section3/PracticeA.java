@@ -8,9 +8,9 @@ public class PracticeA {
         //实现练习要求，并改写该行代码。
         List<String> value = object.get("value");
 
-        for (String s : value) {
-            if (collectionA.containsKey(s)) {
-                collectionA.put(s, collectionA.get(s) - 1);
+        for (String item : value) {
+            if (collectionA.containsKey(item)) {
+                collectionA.put(item, collectionA.get(item) - 1);
             }
         }
         return collectionA;

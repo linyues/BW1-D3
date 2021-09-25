@@ -7,9 +7,9 @@ public class PracticeB {
     Map<String,Integer> createUpdatedCollection(Map<String,Integer> collectionA, Map<String,List<String>> object) {
         List<String> value = object.get("value");
 
-        for (String s : value) {
-            if (collectionA.containsKey(s)) {
-                collectionA.put(s, collectionA.get(s) - (collectionA.get(s) / 3));
+        for (String item : value) {
+            if (collectionA.containsKey(item)) {
+                collectionA.put(item, collectionA.get(item) - (collectionA.get(item) / 3));
             }
         }
         return collectionA;

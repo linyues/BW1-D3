@@ -5,25 +5,35 @@ import java.util.List;
 import java.util.Map;
 
 public class PracticeD {
-    Map<String,Integer> createUpdatedCollection(List<String> collectionA, Map<String,List<String>> object) {
-        Map<String, Integer> collection3 = new HashMap<>();
-
-        for (String s : collectionA) {
-            String[] parts = s.split("-");
-            String key = parts[0];
-
-            int plus = 1;
-            if (parts.length == 2) {
-                plus = Integer.parseInt(parts[1]);
-            }
-
-            if (collection3.containsKey(key)) {
-                collection3.put(key, collection3.get(key) + plus);
-            } else {
-                collection3.put(key, plus);
-            }
-        }
-        return new PracticeB().createUpdatedCollection(collection3, object);
+    private int FullThreeMinusOne(int count) {
+        int result = count;
+        if (count >= 3) { result = count - count / 3; }
+        return result;
     }
 
+    private Map<String, Integer> mapListToObject(List<String> collection) {
+        Map<String, Integer> result = new HashMap<>();
+        for (String charItemStr : collection) {
+            CharItemObj charItemObj = CharItemObj.createChByStr(charItemStr);
+            String ch = charItemObj.getCh();
+            Integer count = charItemObj.getCount();
+            result.put(ch, result.get(ch) == null ? count : result.get(ch) + count);
+        }
+        return result;
+    }
+
+    Map<String, Integer> createUpdatedCollection(List<String> collectionA, Map<String, List<String>> object) {
+        Map<String, Integer> result = new HashMap<>();
+        Map<String, Integer> collectionObject = mapListToObject(collectionA);
+        List<String> arr = object.get("value");
+        for (Map.Entry<String, Integer> entry : collectionObject.entrySet()) {
+            String ch = entry.getKey();
+            int count = entry.getValue();
+            if (!arr.contains(ch)) { result.put(ch, count); }
+            else { result.put(ch, FullThreeMinusOne(count)); }
+        }
+
+        return result;
+    }
 }
+
